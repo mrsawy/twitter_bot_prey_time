@@ -1,7 +1,6 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 import {
-  formatTime,
   getDateInSchema,
   arabicTimings,
   getTimeLikeTheApi,
@@ -11,17 +10,14 @@ import schedule from "node-schedule";
 
 import axios from "axios";
 
-
-
-
-import { tweet, twitterClient } from "./twitterConfig.js";
+import { tweet } from "./twitterConfig.js";
 
 const schedulePreyTime = async () => {
   console.log(`main function schedulePreyTime works`);
 
   var current_date = getDateInSchema();
   var prayerTimesObjectRespone = await axios.get(
-    `https://api.aladhan.com/v1/timingsByCity/${current_date}?city=muscat&country=oman&method=8`
+    `https://api.aladhan.com/v1/timingsByCity/${current_date}?city=muscat&country=oman&method=1`
   );
   var prayerTimes = prayerTimesObjectRespone.data.data.timings;
 
@@ -48,7 +44,6 @@ const schedulePreyTime = async () => {
 
             #أوقات_الصلاة`);
         }
-
         console.log(`prey time `);
         /////////////////////
       }
@@ -57,6 +52,5 @@ const schedulePreyTime = async () => {
 
   setTimeout(schedulePreyTime, 24 * 60 * 60 * 1000);
 };
-
 
 schedulePreyTime();
