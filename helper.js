@@ -19,21 +19,40 @@ function getDateInSchema() {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-
+function isTodayFriday() {
+  var today = new Date();
+  return today.getDay() === 5;
+}
 const arabicTimings = (timingsEnglish) => {
-  return {
-    الفجر: timingsEnglish["Fajr"]?.toString() || "N/A",
-    الضحى: timingsEnglish["Sunrise"]?.toString() || "N/A",
-    الظهر: timingsEnglish["Dhuhr"]?.toString() || "N/A",
-    العصر: timingsEnglish["Asr"]?.toString() || "N/A",
-    الغروب: timingsEnglish["Sunset"]?.toString() || "N/A",
-    المغرب: timingsEnglish["Maghrib"]?.toString() || "N/A",
-    العشاء: timingsEnglish["Isha"]?.toString() || "N/A",
-    الامساك: timingsEnglish["Imsak"]?.toString() || "N/A",
-    "منتصف الليل": timingsEnglish["Midnight"]?.toString() || "N/A",
-    "الثلث الأول من الليل": timingsEnglish["Firstthird"]?.toString() || "N/A",
-    "الثلث الأخير من الليل": timingsEnglish["Lastthird"]?.toString() || "N/A",
-  };
+  if (isTodayFriday()) {
+    return {
+      الفجر: timingsEnglish["Fajr"]?.toString() || "N/A",
+      الضحى: timingsEnglish["Sunrise"]?.toString() || "N/A",
+      الجمعة: timingsEnglish["Dhuhr"]?.toString() || "N/A",
+      العصر: timingsEnglish["Asr"]?.toString() || "N/A",
+      الغروب: timingsEnglish["Sunset"]?.toString() || "N/A",
+      المغرب: timingsEnglish["Maghrib"]?.toString() || "N/A",
+      العشاء: timingsEnglish["Isha"]?.toString() || "N/A",
+      الامساك: timingsEnglish["Imsak"]?.toString() || "N/A",
+      "منتصف الليل": timingsEnglish["Midnight"]?.toString() || "N/A",
+      "الثلث الأول من الليل": timingsEnglish["Firstthird"]?.toString() || "N/A",
+      "الثلث الأخير من الليل": timingsEnglish["Lastthird"]?.toString() || "N/A",
+    };
+  } else {
+    return {
+      الفجر: timingsEnglish["Fajr"]?.toString() || "N/A",
+      الضحى: timingsEnglish["Sunrise"]?.toString() || "N/A",
+      الظهر: timingsEnglish["Dhuhr"]?.toString() || "N/A",
+      العصر: timingsEnglish["Asr"]?.toString() || "N/A",
+      الغروب: timingsEnglish["Sunset"]?.toString() || "N/A",
+      المغرب: timingsEnglish["Maghrib"]?.toString() || "N/A",
+      العشاء: timingsEnglish["Isha"]?.toString() || "N/A",
+      الامساك: timingsEnglish["Imsak"]?.toString() || "N/A",
+      "منتصف الليل": timingsEnglish["Midnight"]?.toString() || "N/A",
+      "الثلث الأول من الليل": timingsEnglish["Firstthird"]?.toString() || "N/A",
+      "الثلث الأخير من الليل": timingsEnglish["Lastthird"]?.toString() || "N/A",
+    };
+  }
 };
 
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -74,20 +93,20 @@ const getTimes = async () => {
   var prayerTimes = prayerTimesObjectRespone.data.data.timings;
   const preyerTimesEdited = {
     ...prayerTimes,
-    Dhuhr: `${prayerTimes["Dhuhr"].split(`:`)[0]}:${
-      +prayerTimes["Dhuhr"].split(`:`)[1] + 6
-    }`,
     Fajr: `${prayerTimes["Fajr"].split(`:`)[0]}:${
       +prayerTimes["Fajr"].split(`:`)[1] + 1
     }`,
-    Asr: `${prayerTimes["Dhuhr"].split(`:`)[0]}:${
+    Dhuhr: `${prayerTimes["Dhuhr"].split(`:`)[0]}:${
       +prayerTimes["Dhuhr"].split(`:`)[1] + 6
+    }`,
+    Asr: `${prayerTimes["Asr"].split(`:`)[0]}:${
+      +prayerTimes["Asr"].split(`:`)[1] + 7
     }`,
     Maghrib: `${prayerTimes["Maghrib"].split(`:`)[0]}:${
       +prayerTimes["Maghrib"].split(`:`)[1] + 5
     }`,
     Isha: `${prayerTimes["Isha"].split(`:`)[0]}:${
-      +prayerTimes["Dhuhr"].split(`:`)[1] + 1
+      +prayerTimes["Isha"].split(`:`)[1] + 1
     }`,
   };
 
@@ -104,3 +123,5 @@ export {
   getTimeLikeTheApi,
   oneOfTheMainFive,
 };
+const putp=await getTimes()
+console.log(putp)

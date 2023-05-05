@@ -8,7 +8,7 @@ import { tweet } from "./twitterConfig.js";
 const schedulePreyTime = async () => {
   console.log(`main function schedulePreyTime works`);
 
-  const arabicTimingsPrey = await getTimes();
+  const arabicTimingsPrey =  await getTimes();
 
   for (const prey in arabicTimingsPrey) {
     const hour = +arabicTimingsPrey[prey].split(`:`)[0];
@@ -27,10 +27,8 @@ const schedulePreyTime = async () => {
 
         if (oneOfTheMainFive(prey)) {
           tweet(`حان الآن موعد أذان ${prey} ${dateLikeApi}  حسب التوقيت المحلي لمحافظة مسقط وضواحيها، وعلى القاطنين خارج المحافظة مراعاة فارق التوقيت.
-
-            #عمان #مسقط
-
-            #أوقات_الصلاة`);
+#عمان #مسقط
+#أوقات_الصلاة`);
         }
         console.log(`prey time `);
         /////////////////////
