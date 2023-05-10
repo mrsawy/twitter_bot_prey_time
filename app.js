@@ -1,6 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { getTimeLikeTheApi, oneOfTheMainFive, getTimes } from "./helper.js";
+import { getTimeLikeTheApi} from "./helper.js";
+import {getCurrentDayAndMonth, getTime } from "./getTime.js";
+
 import schedule from "node-schedule";
 
 import { tweet } from "./twitterConfig.js";
@@ -8,15 +10,23 @@ import { tweet } from "./twitterConfig.js";
 const schedulePreyTime = async () => {
   console.log(`main function schedulePreyTime works`);
 
-  const arabicTimingsPrey =  await getTimes();
+  const arabicTimingsPreyT = await getTime();
+
+  let arabicTimingsPrey={...arabicTimingsPreyT , Fajr:`6:33`}
+ const { dayOfWeek, month , year } = getCurrentDayAndMonth();
 
   for (const prey in arabicTimingsPrey) {
     const hour = +arabicTimingsPrey[prey].split(`:`)[0];
     const minute = +arabicTimingsPrey[prey].split(`:`)[1];
+
+
     schedule.scheduleJob(
       {
         hour,
         minute,
+        dayOfWeek ,
+        month , 
+        year ,
         tz: `Asia/Muscat`,
       },
       async () => {
@@ -25,11 +35,11 @@ const schedulePreyTime = async () => {
         //////////////////////
         const dateLikeApi = getTimeLikeTheApi();
 
-        if (oneOfTheMainFive(prey)) {
+        
           tweet(`حان الآن موعد أذان ${prey} ${dateLikeApi}  حسب التوقيت المحلي لمحافظة مسقط وضواحيها، وعلى القاطنين خارج المحافظة مراعاة فارق التوقيت.
 #عمان #مسقط
 #أوقات_الصلاة`);
-        }
+        
         console.log(`prey time `);
         /////////////////////
       }
