@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { getTimeLikeTheApi} from "./helper.js";
+import { getTimeLikeTheApi , arabicTimings} from "./helper.js";
 import {getCurrentDayAndMonth, getTime } from "./getTime.js";
 
 import schedule from "node-schedule";
@@ -10,7 +10,10 @@ import { tweet } from "./twitterConfig.js";
 const schedulePreyTime = async () => {
   console.log(`main function schedulePreyTime works`);
 
-  const arabicTimingsPrey = await getTime();
+  const timingsPrey = await getTime();
+  const arabicTimingsPrey = arabicTimings(timingsPrey);
+  console.log(arabicTimingsPrey);
+
 
  const { dayOfWeek, month , year } = getCurrentDayAndMonth();
 
