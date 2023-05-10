@@ -10,9 +10,8 @@ import { tweet } from "./twitterConfig.js";
 const schedulePreyTime = async () => {
   console.log(`main function schedulePreyTime works`);
 
-  const arabicTimingsPreyT = await getTime();
+  const arabicTimingsPrey = await getTime();
 
-  let arabicTimingsPrey={...arabicTimingsPreyT , Fajr:`6:33`}
  const { dayOfWeek, month , year } = getCurrentDayAndMonth();
 
   for (const prey in arabicTimingsPrey) {
